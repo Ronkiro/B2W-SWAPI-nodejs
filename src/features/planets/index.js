@@ -1,3 +1,9 @@
+const repository = require('./repository')
 const router = require('./router');
+const validations = require('./validations')
 
-module.exports = router;
+module.exports = {
+  repository,
+  router,
+  validations,
+};

@@ -2,6 +2,10 @@
   "swapi": {
     "url": "https://swapi.dev/api/"
   },
+  "mongo": {
+    "host": "mongo",
+    "port": 27017
+  },
   "logger": {
     "level": "debug"
   }
