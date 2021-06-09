@@ -1,0 +1,28 @@
+version: "3.9"
+   
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_PORT: ${MONGO_INITDB_PORT}
+  redis:
+    image: "redis:6.2.4"
+    restart: always
+  node:
+    image: "node:16.3.0"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "${PORT}:${PORT}"
+    command: "npm start"
+    depends_on:
+      - mongo
+      - redis

@@ -1,0 +1,8 @@
+{
+  "swapi": {
+    "url": "https://swapi.dev/api/"
+  },
+  "logger": {
+    "level": "debug"
+  }
+}
