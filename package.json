@@ -6,7 +6,9 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "crumbs": "codecrumbs -d src -e src/loader.js",
-    "test": "echo No test specified"
+    "test": "echo No test specified",
+    "lint": "npx eslint .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "awilix": "^4.3.4",
@@ -33,6 +35,11 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "fs-readdir-recursive": "^1.1.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "prettier": "^2.3.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
