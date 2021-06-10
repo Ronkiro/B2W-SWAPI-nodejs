@@ -1,0 +1,1 @@
+![Build status](https://github.com/ronkiro/B2W-SWAPI-nodejs/actions/workflows/node.js.yml/badge.svg)
