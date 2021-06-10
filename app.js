@@ -38,6 +38,8 @@ app.use((req, res, next) => {
 
 const apiRouterV1 = express.Router();
 
+loader.resolve('errorHandler');
+
 const routesV1 = loader.resolve('v1Routers');
 routesV1.forEach((route) => {
   apiRouterV1.use('/api/v1', route);

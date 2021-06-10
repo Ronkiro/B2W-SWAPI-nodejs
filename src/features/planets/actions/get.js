@@ -7,9 +7,16 @@ module.exports = async (req, res) => {
       req.query.page,
     );
   } else if (req.query.id) {
-    data = await planetsRepository.searchId(req.query.id);
+    try {
+      data = await planetsRepository.searchId(req.query.id);
+    } catch (err) {
+      if (err.name === 'CastError') {
+        return res.reply(400, 'ID inválido fornecido.', []);
+      }
+      throw err;
+    }
   } else {
     data = await planetsRepository.findAll(req.query.page || 1);
   }
-  return res.reply(200, 'Planetas obtidos com sucesso!', data);
+  return res.reply(200, 'Planetas obtidos com sucesso!', data || []);
 };

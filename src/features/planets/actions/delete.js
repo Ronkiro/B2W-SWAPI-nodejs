@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
 
   // const { error } = planetsValidations.planetCreateValidation.validate(req.body);
   // if (error) return  res.reply(400, 'Planeta inválido.');
-  const planet = req.body;
+  const planet = req.params.id ? { id: req.params.id } : req.body;
 
   if ('id' in planet) {
     // eslint-disable-next-line no-underscore-dangle
@@ -14,5 +14,5 @@ module.exports = async (req, res) => {
 
   await planetsRepository.delete(planet);
 
-  return res.reply(200, 'Planeta deletado com sucesso.');
+  return res.reply(200, 'Planeta deletado com sucesso.', planet);
 };

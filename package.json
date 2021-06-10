@@ -8,7 +8,7 @@
     "crumbs": "codecrumbs -d src -e src/loader.js",
     "audit": "npm audit --production",
     "test": "echo No unit tests specified",
-    "test:integration": "npx mocha --recursive test/**/*.js --timeout 2000",
+    "test:integration": "npx mocha --recursive test/**/*.test.js --timeout 2000",
     "lint": "npx eslint .",
     "prepare": "husky install"
   },

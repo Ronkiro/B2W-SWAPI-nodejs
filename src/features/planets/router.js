@@ -6,7 +6,7 @@ const { get, post, del } = require('./actions');
 const router = Router();
 
 // endpoints
-router.delete('/planets', del);
+router.delete('/planets/:id?', del);
 router.get('/planets', get);
 router.post('/planets', post);
 

@@ -9,6 +9,7 @@ const {
   SWAPI,
   container,
   redis,
+  customerror,
 } = require('./infrastructure');
 const features = require('./features');
 
@@ -20,6 +21,7 @@ const { models } = require('./domain');
 
 container.register({
   cfg: asValue(config),
+  errorHandler: asFunction(customerror).singleton(),
   logger: asFunction(winston).singleton(),
   mongoConnection: asValue(mongoose.connection),
   planetsModel: asFunction(models.Planets).singleton(),
