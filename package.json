@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "crumbs": "codecrumbs -d src -e src/loader.js"
+    "crumbs": "codecrumbs -d src -e src/loader.js",
+    "test": "echo No test specified"
   },
   "dependencies": {
     "awilix": "^4.3.4",
