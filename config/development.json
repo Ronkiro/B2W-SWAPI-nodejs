@@ -6,6 +6,10 @@
     "host": "mongo",
     "port": 27017
   },
+  "redis": {
+    "host": "redis",
+    "port": 6379
+  },
   "logger": {
     "level": "debug"
   }

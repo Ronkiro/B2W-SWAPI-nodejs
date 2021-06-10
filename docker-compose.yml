@@ -4,6 +4,7 @@ services:
   mongo:
     image: mongo
     restart: always
+    command: --quiet
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
@@ -24,6 +25,7 @@ services:
       - PORT=${PORT}
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - REDIS_PORT=${REDIS_PORT}
     volumes:
       - ./:/home/node/app
     ports:
