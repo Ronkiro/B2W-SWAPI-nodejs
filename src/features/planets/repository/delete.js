@@ -1,3 +1,1 @@
-module.exports = ({ planetsModel }, planet) => {
-  return planetsModel.deleteMany(planet);
-}
+module.exports = ({ planetsModel }, planet) => planetsModel.deleteMany(planet);

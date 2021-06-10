@@ -1,3 +1,1 @@
-module.exports = ({ planetsModel }, planet) => {
-  return planetsModel.create(planet);
-}
+module.exports = ({ planetsModel }, planet) => planetsModel.create(planet);

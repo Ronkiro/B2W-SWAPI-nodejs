@@ -1,3 +1,3 @@
 const awilix = require('awilix');
 
-module.exports = awilix.createContainer()
+module.exports = awilix.createContainer();

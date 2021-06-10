@@ -1,16 +1,22 @@
 // management
-const { asValue, asFunction, asClass } = require("awilix");
+const { asValue, asFunction } = require('awilix');
 
 // modules
-const config = require("config");
-const { winston, mongoose, SWAPI, container, redis } = require("./infrastructure");
-const features = require('./features')
+const config = require('config');
+const {
+  winston,
+  mongoose,
+  SWAPI,
+  container,
+  redis,
+} = require('./infrastructure');
+const features = require('./features');
 
 // resources
 const routersList = features.v1Routers;
 
 // models
-const { models } = require("./domain");
+const { models } = require('./domain');
 
 container.register({
   cfg: asValue(config),

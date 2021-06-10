@@ -1,17 +1,17 @@
 module.exports = (req, res, next) => {
-  res.reply = (status, msg = "", data = {}, error="", type = "json") => {
-    const _error = {
+  res.reply = (status, msg = '', data = {}, error = '', type = 'json') => {
+    const parsedError = {
       message: error,
-      exists: false,
+      exists: !!error,
     };
 
     return res.status(status).type(type).send({
       data,
       status,
-      error: _error,
+      error: parsedError,
       msg,
     });
-  }
-  
+  };
+
   next();
 };

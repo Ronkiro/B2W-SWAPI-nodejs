@@ -5,5 +5,5 @@ const post = require('./post');
 module.exports = {
   del,
   get,
-  post
-}
+  post,
+};

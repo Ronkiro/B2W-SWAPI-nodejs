@@ -2,8 +2,8 @@ module.exports = async (
   { planetsModel, redis },
   params = {},
   page = 1,
-  sortBy = { name: "asc" },
-  limit = 50
+  sortBy = { name: 'asc' },
+  limit = 50,
 ) => {
   let returnData;
 
@@ -23,14 +23,14 @@ module.exports = async (
       await redis.setAsync(
         `Planets_all_${page}`,
         JSON.stringify(returnData),
-        "EX", // seconds
-        30 // TTL
+        'EX', // seconds
+        30, // TTL
       );
     }
     return returnData;
   }
 
-  return await planetsModel
+  return planetsModel
     .find(params)
     .sort(sortBy)
     .limit(limit)

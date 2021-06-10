@@ -1,15 +1,19 @@
-module.exports = async (req, res, next) => {
+module.exports = async (req, res) => {
   // TODO: CQS
   const { SWAPI, planetsRepository, planetsValidations } = req.container;
 
-  const { error } = planetsValidations.planetCreateValidation.validate(req.body);
-  if (error) return  res.reply(400, 'Planeta inválido.');
+  const { error } = planetsValidations.planetCreateValidation.validate(
+    req.body,
+  );
+  if (error) return res.reply(400, 'Planeta inválido.');
 
   const planet = req.body;
   const searchRes = (await SWAPI.planets.search(planet.name)).data;
-  if (searchRes.count)
+  if (searchRes.count) {
     planet.filmsCount = searchRes.results[0].films.length;
-  await planetsRepository.save(planet);
+    await planetsRepository.save(planet);
 
-  return res.reply(200, 'Planeta salvo com sucesso.');
-}
+    return res.reply(200, 'Planeta salvo com sucesso.');
+  }
+  return res.reply(500, 'Ocorreu um erro desconhecido ao salvar planeta.');
+};
