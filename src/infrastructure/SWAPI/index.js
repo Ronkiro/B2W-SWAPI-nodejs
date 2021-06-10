@@ -1,10 +1,11 @@
 // API Service
 const api = require('./api')
-
-// endpoints
 const planets = require('./planets')
 
+// endpoints
 module.exports = {
   api,
-  planets,
+  interface: (opts) => ({ 
+    planets: planets(opts),
+  })
 }

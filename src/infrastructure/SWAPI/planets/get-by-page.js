@@ -1,6 +1,4 @@
-const SWAPIClient = require('../api')
-
-const getByPage = (page) => {
+const getByPage = ({ SWAPIClient }, page) => {
   const pageQuery = page? `?page=${page}` : "";
   const url = `/planets/${pageQuery}`;
   

@@ -9,6 +9,8 @@ var logger = require('morgan');
 const loader = require('./src/loader')
 const responseMiddleware = require('./src/middlewares/response')
 
+const appLogger = loader.resolve('logger') 
+
 
 // if (dotenv.config({
 //     path: `env/${process.env.NODE_ENV}.env`
@@ -63,4 +65,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+appLogger.info('Server started :)')
 module.exports = app;

@@ -1,8 +1,6 @@
-const SWAPIClient = require('../api')
-
-const search = (name) => {
+const search = async({ SWAPIClient }, name) => {
   const url = `/planets/?search=${name}`;
-  
+
   return SWAPIClient.get(url);
 }
 

@@ -1,6 +1,5 @@
-const cfg = require('config');
 const axios = require('axios')
 
-module.exports = axios.create({
+module.exports = ({ cfg }) => axios.create({
   baseURL: cfg.swapi.url,
 })
