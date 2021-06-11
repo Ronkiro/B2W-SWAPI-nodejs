@@ -15,6 +15,11 @@ module.exports = async (req, res) => {
 
     return res.reply(200, 'Planeta salvo com sucesso.', createdPlanet);
   } catch (err) {
-    return res.reply(500, 'Ocorreu um erro desconhecido ao salvar planeta.');
+    return res.reply(
+      500,
+      'Ocorreu um erro desconhecido ao salvar planeta.',
+      {},
+      'Erro interno ao realizar requisição.',
+    );
   }
 };
