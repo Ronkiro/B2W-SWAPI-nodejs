@@ -2,7 +2,6 @@ module.exports = async (req, res) => {
   // TODO: CQS
   const { planetsRepository } = req.container;
 
-  // const { error } = planetsValidations.planetCreateValidation.validate(req.body);
   // if (error) return  res.reply(400, 'Planeta inválido.');
   const planet = req.params.id ? { id: req.params.id } : req.body;
 

@@ -7,8 +7,9 @@
     "dev": "nodemon ./bin/www",
     "crumbs": "codecrumbs -d src -e src/loader.js",
     "audit": "npm audit --production",
-    "test": "echo No unit tests specified",
-    "test:integration": "npx mocha --recursive test/**/*.test.js --timeout 2000",
+    "test": "npm run test:unit",
+    "test:integration": "npx mocha --recursive test/**/integrations/*.test.js --timeout 2000",
+    "test:unit": "npx mocha --recursive test/**/unit/*.spec.js --timeout 2000",
     "lint": "npx eslint .",
     "prepare": "husky install"
   },
