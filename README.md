@@ -7,6 +7,8 @@
 
 This repository was created as a solution for B2W Developer challenge.
 
+> The API has an application-level rate limiter. It's currently configured to 100 requests per minute. and uses redis for client management.
+
 ## Architecture overview
 
 ![Crumbs](docs/crumbs.png)
