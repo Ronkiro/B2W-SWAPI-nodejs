@@ -9,6 +9,8 @@ This repository was created as a solution for B2W Developer challenge.
 
 ## Architecture overview
 
+![Crumbs](docs/crumbs.png)
+
 To speed up requests, a cache layer was applied into READ-related requests (GET /planets).
 
 Also, a queue was used with a strategy to segregate the *commands* (Writes) from *queries* (reads). By this way, we make requests faster, as there is no need to process business logic (This is done in the background, by workers).
@@ -119,9 +121,23 @@ npm run dev
 docker-compose up
 ```
 
+# Swagger
+
+There are OpenAPI-like specs defined at `docs/swagger.json`. When running the application structure, you can access `<host>/api-docs` to access swagger documentation.
+
+![Swagger demo](docs/swagger.png)
+
+# Codecrumbs
+
+You can see a general structure and more info from project by using codecrumbs. There is a shortcut available at `npm run crumbs`.
+
 # Testing
 
 You can use `npm run test` or `npm run test:unit` to run unit tests and `npm run test:integration` to run integration tests.
+
+# Auditting
+
+`npm run audit`
 
 # Credits
 

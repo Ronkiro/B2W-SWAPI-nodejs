@@ -1,0 +1,210 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a solution to B2W Star Wars API challenge.",
+    "version": "1.0.0",
+    "title": "B2W Star Wars API Node.js",
+    "contact": {
+      "email": "dev_alex@outlook.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "planets",
+      "description": "Planet Management",
+      "externalDocs": {
+        "description": "Find out more at",
+        "url": "https://swapi.dev/"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/planets": {
+      "post": {
+        "tags": [
+          "planets"
+        ],
+        "summary": "Add a new planet to the database",
+        "description": "Sends a message to the queue for planet creation",
+        "operationId": "createPlanet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Planet to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Planet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "planets"
+        ],
+        "summary": "Get planets from database",
+        "operationId": "getPlanet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "description": "Id of the planet to search",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string",
+            "description": "name of the planet to search",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "type": "string",
+            "description": "name of the planet to search",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/planets/{planetId}": {
+      "delete": {
+        "tags": [
+          "planets"
+        ],
+        "summary": "Deletes planets from database",
+        "operationId": "deletePlanet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "planetId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Planet": {
+      "type": "object",
+      "required": [
+        "name",
+        "terrain",
+        "climate"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Tatooine"
+        },
+        "terrain": {
+          "type": "string",
+          "example": "Terrain"
+        },
+        "climate": {
+          "type": "string",
+          "example": "Climate"
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "terrain": {
+              "type": "string"
+            },
+            "climate": {
+              "type": "string"
+            }
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "exists": {
+              "type": "boolean"
+            }
+          }
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about SWAPI",
+    "url": "https://swapi.dev"
+  }
+}
