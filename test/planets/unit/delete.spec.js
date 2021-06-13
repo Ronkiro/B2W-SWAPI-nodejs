@@ -10,8 +10,14 @@ describe('DELETE /planets', () => {
   let mockData;
   let req;
   let res;
+  let planetsValidations;
 
   beforeEach(() => {
+    planetsValidations = {
+      planetDeleteValidation: {
+        validate: () => ({ error: false }),
+      },
+    };
     mockData = {
       filmsCount: 5,
       name: 'Tatooine',
@@ -30,6 +36,7 @@ describe('DELETE /planets', () => {
         planetsRepository: {
           delete: () => mockData,
         },
+        planetsValidations,
         publisher: {
           send: (args) => args,
         },
