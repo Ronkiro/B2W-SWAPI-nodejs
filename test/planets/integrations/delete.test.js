@@ -13,16 +13,14 @@ describe('DELETE /planets', () => {
     request(host)
       .del(`${apiVersionRoute}/planets`)
       .send({
-        name: 'Tatooine',
-        terrain: 'Teste',
-        climate: 'Teste',
+        id: '60c644532a7c9a373398a276',
       })
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
 
   it('deletes item by url (depends on create and get)', async () => {
-    const data = await request(host)
+    await request(host)
       .post(`${apiVersionRoute}/planets`)
       .send({
         name: 'Tatooine',
@@ -32,8 +30,11 @@ describe('DELETE /planets', () => {
       .expect('Content-Type', /json/)
       .expect(200);
 
+    const data = await request(host)
+      .get(`${apiVersionRoute}/planets`);
+
     await request(host)
-      .del(`${apiVersionRoute}/planets/${data.body.data.id}`)
+      .del(`${apiVersionRoute}/planets/${data.body.data[0].id}`)
       .expect('Content-Type', /json/)
       .expect(200);
 

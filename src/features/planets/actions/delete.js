@@ -1,6 +1,6 @@
 module.exports = async (req, res) => {
   try {
-    const { publisher } = req.container;
+    const { publisher, planetsValidations } = req.container;
 
     // if (error) return  res.reply(400, 'Planeta inválido.');
     const planet = req.params.id ? { id: req.params.id } : req.body;
@@ -10,6 +10,11 @@ module.exports = async (req, res) => {
       planet._id = planet.id;
       delete planet.id;
     }
+
+    const { error } = planetsValidations.planetDeleteValidation.validate(
+      planet,
+    );
+    if (error) return res.reply(400, 'Planeta inválido.', req.body, error);
 
     publisher.send('planets', 'deletePlanet', planet);
 
