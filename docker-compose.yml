@@ -11,11 +11,65 @@ services:
       MONGO_INITDB_PORT: ${MONGO_PORT}
     ports:
       - "${MONGO_PORT}:${MONGO_PORT}"
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3-management
+    restart: always
+    environment: 
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    ports:
+      - "${RABBITMQ_PORT}:${RABBITMQ_PORT}"
+      - "4369:4369"
+      - "55950:55950"
+      - "15672:15672"
+      - "15692:15692"
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status"]
+      interval: 5s
+      timeout: 20s
+      retries: 5
   redis:
     image: "redis:6.2.4"
     restart: always
     ports:
       - "${REDIS_PORT}:${REDIS_PORT}"
+  planet-delete:
+    image: "node:16.3.0"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASS=${RABBITMQ_PASS}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+    command: "node ./workers/planet-delete-worker/start.js"
+    volumes:
+      - "./:/home/node/app"
+    depends_on:
+      rabbit:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+  planet-create:
+    image: "node:16.3.0"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASS=${RABBITMQ_PASS}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+    command: "node ./workers/planet-create-worker/start.js"
+    volumes:
+      - "./:/home/node/app"
+    depends_on:
+      rabbit:
+        condition: service_healthy
+      mongo:
+        condition: service_started
   node:
     image: "node:16.3.0"
     user: "node"
@@ -26,6 +80,9 @@ services:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
       - REDIS_PORT=${REDIS_PORT}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USER=${RABBITMQ_USER}
+      - RABBITMQ_PASS=${RABBITMQ_PASS}
     volumes:
       - ./:/home/node/app
     ports:
@@ -34,3 +91,4 @@ services:
     depends_on:
       - mongo
       - redis
+      - rabbit

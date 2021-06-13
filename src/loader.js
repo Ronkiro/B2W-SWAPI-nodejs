@@ -10,6 +10,7 @@ const {
   container,
   redis,
   customerror,
+  rabbitmq,
 } = require('./infrastructure');
 const features = require('./features');
 
@@ -27,6 +28,8 @@ container.register({
   planetsModel: asFunction(models.Planets).singleton(),
   planetsRepository: asFunction(features.planetsRepository).singleton(),
   planetsValidations: asValue(features.planetsValidations),
+  rabbitMQ: asFunction(rabbitmq.conn).singleton().disposer((c) => c.close()),
+  publisher: asFunction(rabbitmq.channel).singleton(),
   redis: asFunction(redis).singleton(),
   schemas: asValue(mongoose.schemas),
   SWAPIClient: asFunction(SWAPI.api).singleton(),

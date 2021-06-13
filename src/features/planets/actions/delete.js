@@ -1,7 +1,6 @@
 module.exports = async (req, res) => {
   try {
-    // TODO: CQS
-    const { planetsRepository } = req.container;
+    const { publisher } = req.container;
 
     // if (error) return  res.reply(400, 'Planeta inválido.');
     const planet = req.params.id ? { id: req.params.id } : req.body;
@@ -12,9 +11,9 @@ module.exports = async (req, res) => {
       delete planet.id;
     }
 
-    await planetsRepository.delete(planet);
+    publisher.send('planets', 'deletePlanet', planet);
 
-    return res.reply(200, 'Planeta deletado com sucesso.', planet);
+    return res.reply(200, 'Planeta encaminhado para deleção com sucesso.', planet);
   } catch (err) {
     return res.reply(
       500,
