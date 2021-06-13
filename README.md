@@ -7,6 +7,15 @@
 
 This repository was created as a solution for B2W Developer challenge.
 
+## Architecture overview
+
+To speed up requests, a cache layer was applied into READ-related requests (GET /planets).
+
+Also, a queue was used with a strategy to segregate the *commands* (Writes) from *queries* (reads). By this way, we make requests faster, as there is no need to process business logic (This is done in the background, by workers).
+
+For each resource (in this case, only planets resource), an exchange would be responsible for routing the message to the correct queue, so workers related to that queue can consume it's messages.
+
+![Architecture overview](docs/diagram.png)
 ## The challenge
 
 The following instructions were given in the test: (PT-BR)
@@ -94,7 +103,7 @@ You can use [Docker Compose](https://docs.docker.com/compose/) to start the proj
 
 # Installing
 
-Use `npm i` for installing node dependencies. (Not needed for docker-compose route).
+Use `npm i` for installing node dependencies.
 
 # Running
 
