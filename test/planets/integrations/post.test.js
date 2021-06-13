@@ -31,15 +31,6 @@ describe('POST /planets', function description() {
     assert.hasAllKeys(data.body, ['data', 'status', 'error', 'msg']);
   });
 
-  it('returns entity with filmsCount', async () => {
-    const data = await request(host).post(`${apiVersionRoute}/planets`).send({
-      name: 'Tatooine',
-      terrain: 'Teste',
-      climate: 'Teste',
-    });
-    assert.hasAllKeys(data.body.data, ['name', 'terrain', 'climate', 'filmsCount', 'id', '__v', 'updatedAt', 'createdAt']);
-  });
-
   it('returns invalid when using wrong schema', (done) => {
     request(host)
       .post(`${apiVersionRoute}/planets`)
@@ -57,14 +48,5 @@ describe('POST /planets', function description() {
       terrain: 'Teste',
     });
     expect(data.body.error.exists).to.equal(true);
-  });
-
-  it('has filmsCount when valid planet', async () => {
-    const data = await request(host).post(`${apiVersionRoute}/planets`).send({
-      name: 'Tatooine',
-      terrain: 'Teste',
-      climate: 'Teste',
-    });
-    expect(data.body.data.filmsCount).to.equal(5);
   });
 });
