@@ -20,6 +20,27 @@ Also, a queue was used with a strategy to segregate the *commands* (Writes) from
 For each resource (in this case, only planets resource), an exchange would be responsible for routing the message to the correct queue, so workers related to that queue can consume it's messages.
 
 ![Architecture overview](docs/diagram.png)
+
+## Used technologies
+
+- amqplib: as RabbitMQ client
+- awilix: IoC
+- winston/morgan: logging
+- rate-limit/rate-limit-redis: rate limitting logic 
+- mongoose: as MongoDB client
+- swagger-ui-express: as Swagger client
+- joi/joi-oid: fail-fast validation.
+- helmet: improve security
+- axios: HTTP client
+- config: configuration management
+- mocha/chai/supertest: testing
+- eslint/prettier: code styling/format enforcement
+- nyc: code coverage
+- codecrumbs: dependency overview
+- husky: precommit hooks management
+- lint-staged: faster linting for commits
+- redis: as Redis client.
+  
 ## The challenge
 
 The following instructions were given in the test: (PT-BR)
