@@ -30,6 +30,9 @@ describe('DELETE /planets', () => {
         planetsRepository: {
           delete: () => mockData,
         },
+        publisher: {
+          send: (args) => args,
+        },
       },
     };
     res = {

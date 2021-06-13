@@ -46,6 +46,9 @@ describe('POST /planets', () => {
         planetsRepository: {
           save: () => mockData,
         },
+        publisher: {
+          send: (args) => args,
+        },
       },
     };
     res = {
