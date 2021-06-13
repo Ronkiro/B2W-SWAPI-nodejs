@@ -5,14 +5,17 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./docs/swagger.json');
+const rateLimit = require('express-rate-limit');
+const RedisStore = require('rate-limit-redis');
 
 // custom
 // const dotenv = require('dotenv');
+const swaggerDocument = require('./docs/swagger.json');
 const loader = require('./src/loader');
-const responseMiddleware = require('./src/middlewares/response');
 
 const appLogger = loader.resolve('logger');
+const redisClient = loader.resolve('redis');
+const responseMiddleware = require('./src/middlewares/response');
 
 // if (dotenv.config({
 //     path: `env/${process.env.NODE_ENV}.env`
@@ -22,7 +25,20 @@ const appLogger = loader.resolve('logger');
 
 const app = express();
 
+// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+// see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
+
 app.use(helmet());
+app.use(rateLimit({
+  max: 100,
+  windowMs: 1 * 60 * 1000, // 1 minute
+  store: new RedisStore({
+    client: redisClient,
+  }),
+  passIfNotConnected: true,
+  message: 'Muitas mensagens recebidas deste IP. Por favor, tente novamente em um minuto.',
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
