@@ -137,6 +137,8 @@ You can see a general structure and more info from project by using codecrumbs. 
 
 You can use `npm run test` or `npm run test:unit` to run unit tests and `npm run test:integration` to run integration tests.
 
+> For code coverage use `npm run coverage`
+
 # Auditting
 
 `npm run audit`
