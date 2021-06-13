@@ -11,7 +11,8 @@
     "test:integration": "npx mocha --recursive test/**/integrations/*.test.js --timeout 2000",
     "test:unit": "npx mocha --recursive test/**/unit/*.spec.js --timeout 2000",
     "lint": "npx eslint .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "coverage": "nyc --reporter=text npm run test"
   },
   "directories": {
     "test": "./test"
@@ -51,6 +52,7 @@
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
     "mocha": "^9.0.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.3.1",
     "supertest": "^6.1.3"
   },
